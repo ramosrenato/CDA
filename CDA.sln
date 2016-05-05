@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDA.DAL.MYSQL", "CDA.DAL.My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDA.DAL.ORACLE", "CDA.DAL.Oracle\CDA.DAL.ORACLE.csproj", "{3F90D786-7377-4459-8FC3-AB9A69731768}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDA.Test", "CDA.Test\CDA.Test.csproj", "{140DE6CA-3B1A-4DAD-8530-7455F0D3C1C4}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CDA.DB", "CDA.DB\CDA.DB.sqlproj", "{7F6339B7-09B3-4DDA-822F-FA151A247AC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,16 @@ Global
 		{3F90D786-7377-4459-8FC3-AB9A69731768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F90D786-7377-4459-8FC3-AB9A69731768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F90D786-7377-4459-8FC3-AB9A69731768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{140DE6CA-3B1A-4DAD-8530-7455F0D3C1C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140DE6CA-3B1A-4DAD-8530-7455F0D3C1C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140DE6CA-3B1A-4DAD-8530-7455F0D3C1C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140DE6CA-3B1A-4DAD-8530-7455F0D3C1C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F6339B7-09B3-4DDA-822F-FA151A247AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F6339B7-09B3-4DDA-822F-FA151A247AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F6339B7-09B3-4DDA-822F-FA151A247AC0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7F6339B7-09B3-4DDA-822F-FA151A247AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F6339B7-09B3-4DDA-822F-FA151A247AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F6339B7-09B3-4DDA-822F-FA151A247AC0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
