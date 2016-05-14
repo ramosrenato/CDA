@@ -108,10 +108,7 @@ namespace CDA.DAL
             #endregion
 
             #region ExecuteReader
-
-
-
-
+            
             public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
                 using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
@@ -140,8 +137,7 @@ namespace CDA.DAL
                 }
             }
 
-
-            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Func<T> method)
+            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method)
             {
                 using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
                 {
@@ -155,7 +151,7 @@ namespace CDA.DAL
                 }
             }
 
-            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Func<T> method, string connectionName)
+            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method, string connectionName)
             {
                 using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
                 {
@@ -166,6 +162,39 @@ namespace CDA.DAL
                     {
                         return DataMapper.ToEnumerable<T>(dr, method);
                     }
+                }
+            }
+            
+
+            public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms)
+            {
+                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms))
+                {
+                    return DataMapper.ToObject<T>(dr);
+                }
+            }
+
+            public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
+            {
+                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms, connectionName))
+                {
+                    return DataMapper.ToObject<T>(dr);
+                }
+            }
+
+            public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method)
+            {
+                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms))
+                {
+                    return DataMapper.ToObject<T>(dr, method);
+                }
+            }
+
+            public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method, string connectionName)
+            {
+                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms, connectionName))
+                {
+                    return DataMapper.ToObject<T>(dr, method);
                 }
             }
 
@@ -296,9 +325,14 @@ namespace CDA.DAL
 
             #region GetConnectionString
 
+            private static string GetNamespace()
+            {
+                return typeof(CDA.DAL.MSSQL.DataAccessLayer).Namespace.ToLower();
+            }
+
             public static string GetConnectionString()
             {
-                return ConfigurationManager.ConnectionStrings["mssql"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings[GetNamespace()].ConnectionString;
             }
 
             public static string GetConnectionString(string name)

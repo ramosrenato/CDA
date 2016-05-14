@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using CDA.DAL;
 using CDA.DAL.MSSQL;
+using System;
 
 namespace CDA.Test
 {
@@ -42,33 +43,39 @@ namespace CDA.Test
         [TestMethod]
         public void TestUpdateUser()
         {
-
-            DataParameter param1 = new DataParameter
+            DataParameter param = new DataParameter
             {
                 {"p_id", 1 }
             };
 
             //UPDATE
             string query1 = "UPDATE [User] SET Name = 'TestUser' WHERE Id = @p_id";
-            DataAccessLayer.ExecuteNonQuery(CommandType.Text, query1, param1);
+            DataAccessLayer.ExecuteNonQuery(CommandType.Text, query1, param);
 
 
             // VERIFY
-            User user = null;
-            DataParameter param2 = new DataParameter
-            {
-                {"p_id", 1 }
-            };
-
             string query2 = "SELECT * FROM [User] WHERE Id = @p_id";
-            using (IDataReader dr = DataAccessLayer.OpenDataReader(CommandType.Text, query2, param2))
-            {
-               user = DataMapper.ToInstance<User>(dr);
-            }
+            User user = DataAccessLayer.ExecuteReaderObject<User>(CommandType.Text, query2, param);
 
+            
             Assert.IsTrue(user.Name.Equals("TestUser"));
         }
 
-        
+        [TestMethod]
+        public void TestSelect()
+        {
+            string query = "SELECT * FROM [User]";
+            IList<User> users = (IList<User>)DataAccessLayer.ExecuteReader<User>(CommandType.Text, query, null, FillerTestSelect);
+
+            Assert.IsTrue(users.Count > 0);
+        }
+
+        public static void FillerTestSelect(User obj, IDataReader dr)
+        {
+            obj.Id = Convert.ToInt32(dr["Id"]);
+            obj.Name = dr["Name"].ToString();
+            obj.Active = Convert.ToBoolean(dr["Active"]);
+        }
+
     }
 }

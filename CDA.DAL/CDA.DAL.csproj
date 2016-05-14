@@ -39,7 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseDataAccess.cs" />
-    <Compile Include="Base\BaseDataParameters.cs" />
+    <Compile Include="Base\BaseDataParameter.cs" />
     <Compile Include="DataColumnAttribute.cs" />
     <Compile Include="DataInfo.cs" />
     <Compile Include="DataMapper.cs" />

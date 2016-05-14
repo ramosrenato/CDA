@@ -64,7 +64,7 @@ namespace CDA.DAL
 
         #endregion
 
-        #region Interface IDataParameters
+        #region Interface IDataParameter
 
         public abstract void Add(string parameter, string value);
         public abstract void Add(string parameter, char value);

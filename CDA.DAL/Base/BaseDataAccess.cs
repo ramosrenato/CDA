@@ -5,8 +5,9 @@ using System.Data;
 
 namespace CDA.DAL
 {
-    public delegate void Func<T>(T obj, IDataReader dr);
+    public delegate void Method<T>(T obj, IDataReader dr);
 
+    
     public abstract class BaseDataAccess : IDisposable, IDataAccess
     {
 
@@ -101,15 +102,18 @@ namespace CDA.DAL
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.mDisposed)
+            if (!mDisposed)
             {
+                if (mCommand.Parameters != null) 
+                    mCommand.Parameters.Clear();
+
                 if (disposing)
                 {
                     if (mConnection.State != ConnectionState.Closed)
                         mConnection.Close();
                 }
 
-                this.mDisposed = true;
+                mDisposed = true;
             }
         }
 

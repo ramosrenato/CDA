@@ -138,7 +138,7 @@ namespace CDA.DAL
                 }
             }
 
-            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Func<T> method)
+            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method)
             {
                 using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
                 {
@@ -152,7 +152,7 @@ namespace CDA.DAL
                 }
             }
 
-            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Func<T> method, string connectionName)
+            public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method, string connectionName)
             {
                 using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
                 {

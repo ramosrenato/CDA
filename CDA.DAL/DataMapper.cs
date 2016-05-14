@@ -111,7 +111,7 @@ namespace CDA.DAL
 
         #region To Enumerable using delegate function
 
-        public static IEnumerable<T> ToEnumerable<T>(IDataReader dr, Func<T> method)
+        public static IEnumerable<T> ToEnumerable<T>(IDataReader dr, Method<T> method)
         {
             IList<T> list = new List<T>();
 
@@ -127,9 +127,9 @@ namespace CDA.DAL
 
         #endregion
 
-        #region To Instance
+        #region To Object
 
-        public static T ToInstance<T>(IDataReader dr)
+        public static T ToObject<T>(IDataReader dr)
         {
             IDictionary<string, DataInfo> map = DataMapper.Map<T>();
             DataInfo info;
@@ -148,7 +148,17 @@ namespace CDA.DAL
             return item;
         }
 
-        public static void ToInstance<T>(IDataReader dr, T item)
+        public static T ToObject<T>(IDataReader dr, Method<T> method)
+        {
+            T item = (T)Activator.CreateInstance(typeof(T));
+
+            if (dr.Read())
+                method(item, dr);
+
+            return item;
+        }
+
+        public static void ToObject<T>(IDataReader dr, T item)
         {
             IDictionary<string, DataInfo> map = DataMapper.Map<T>();
             DataInfo info;
@@ -163,7 +173,7 @@ namespace CDA.DAL
             }
         }
 
-        public static void ToInstance<T>(IDataReader dr, T item, Func<T> method)
+        public static void ToObject<T>(IDataReader dr, T item, Method<T> method)
         {
             if (dr.Read())
                 method(item, dr);
