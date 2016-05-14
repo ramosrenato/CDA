@@ -14,12 +14,12 @@ namespace CDA.DAL
 
             public static DataAccess CreateDataAccess()
             {
-                return new DataAccess(DataAccessLayer.GetConnectionString());
+                return new DataAccess(GetConnectionString());
             }
 
             public static DataAccess CreateDataAccess(string connectionName)
             {
-                return new DataAccess(DataAccessLayer.GetConnectionString(connectionName));
+                return new DataAccess(GetConnectionString(connectionName));
             }
 
             #endregion
@@ -28,7 +28,7 @@ namespace CDA.DAL
 
             public static int ExecuteNonQuery(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -39,7 +39,7 @@ namespace CDA.DAL
 
             public static int ExecuteNonQuery(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -64,7 +64,7 @@ namespace CDA.DAL
             {
                 DbCommand cmd = null;
 
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -80,7 +80,7 @@ namespace CDA.DAL
             {
                 DbCommand cmd = null;
 
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -111,7 +111,7 @@ namespace CDA.DAL
             
             public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -125,7 +125,7 @@ namespace CDA.DAL
 
             public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -139,7 +139,7 @@ namespace CDA.DAL
 
             public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -153,7 +153,7 @@ namespace CDA.DAL
 
             public static IEnumerable<T> ExecuteReader<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method, string connectionName)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -168,7 +168,7 @@ namespace CDA.DAL
 
             public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms))
+                using (IDataReader dr = OpenDataReader(cmdType, cmdText, cmdParms))
                 {
                     return DataMapper.ToObject<T>(dr);
                 }
@@ -176,7 +176,7 @@ namespace CDA.DAL
 
             public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
             {
-                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms, connectionName))
+                using (IDataReader dr = OpenDataReader(cmdType, cmdText, cmdParms, connectionName))
                 {
                     return DataMapper.ToObject<T>(dr);
                 }
@@ -184,7 +184,7 @@ namespace CDA.DAL
 
             public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method)
             {
-                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms))
+                using (IDataReader dr = OpenDataReader(cmdType, cmdText, cmdParms))
                 {
                     return DataMapper.ToObject<T>(dr, method);
                 }
@@ -192,7 +192,7 @@ namespace CDA.DAL
 
             public static T ExecuteReaderObject<T>(CommandType cmdType, string cmdText, IDataParameter cmdParms, Method<T> method, string connectionName)
             {
-                using (IDataReader dr = DataAccessLayer.OpenDataReader(cmdType, cmdText, cmdParms, connectionName))
+                using (IDataReader dr = OpenDataReader(cmdType, cmdText, cmdParms, connectionName))
                 {
                     return DataMapper.ToObject<T>(dr, method);
                 }
@@ -204,7 +204,7 @@ namespace CDA.DAL
 
             public static object ExecuteScalar(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -215,7 +215,7 @@ namespace CDA.DAL
 
             public static object ExecuteScalar(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -246,7 +246,7 @@ namespace CDA.DAL
 
             public static IDataReader OpenDataReader(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString());
+                DataAccess da = new DataAccess(GetConnectionString());
 
                 da.CreateCmd(cmdType, cmdText);
                 da.Parameters = (DataParameter)cmdParms;
@@ -256,7 +256,7 @@ namespace CDA.DAL
 
             public static IDataReader OpenDataReader(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
             {
-                DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName));
+                DataAccess da = new DataAccess(GetConnectionString(connectionName));
 
                 da.CreateCmd(cmdType, cmdText);
                 da.Parameters = (DataParameter)cmdParms;
@@ -270,7 +270,7 @@ namespace CDA.DAL
 
             public static DataSet OpenDataSet(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -287,13 +287,25 @@ namespace CDA.DAL
                 return dataAccess.OpenDataSet();
             }
 
+            public static DataSet OpenDataSet(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
+            {
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
+                {
+                    da.CreateCmd(cmdType, cmdText);
+                    da.Parameters = (DataParameter)cmdParms;
+
+                    return da.OpenDataSet();
+                }
+            }
+
+
             #endregion
 
             #region OpenDataTable
 
             public static DataTable OpenDataTable(CommandType cmdType, string cmdText, IDataParameter cmdParms)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString()))
+                using (DataAccess da = new DataAccess(GetConnectionString()))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -304,7 +316,7 @@ namespace CDA.DAL
 
             public static DataTable OpenDataTable(CommandType cmdType, string cmdText, IDataParameter cmdParms, string connectionName)
             {
-                using (DataAccess da = new DataAccess(DataAccessLayer.GetConnectionString(connectionName)))
+                using (DataAccess da = new DataAccess(GetConnectionString(connectionName)))
                 {
                     da.CreateCmd(cmdType, cmdText);
                     da.Parameters = (DataParameter)cmdParms;
@@ -327,7 +339,7 @@ namespace CDA.DAL
 
             private static string GetNamespace()
             {
-                return typeof(CDA.DAL.MSSQL.DataAccessLayer).Namespace.ToLower();
+                return typeof(DataAccessLayer).Namespace.ToLower();
             }
 
             public static string GetConnectionString()
