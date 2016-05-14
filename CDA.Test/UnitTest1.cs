@@ -35,7 +35,17 @@ namespace CDA.Test
         {
             string query = "SELECT * FROM [User]";
 
-            IList<User> users = (IList<User>)DataAccessLayer.ExecuteReader<User>(CommandType.Text, query, null);
+            List<User> users = new List<User>(DataAccessLayer.ExecuteReader<User>(CommandType.Text, query, null));
+                        
+            Assert.IsTrue(users.Count > 0);
+        }
+
+        [TestMethod]
+        public void TestQueueUsers()
+        {
+            string query = "SELECT * FROM [User]";
+
+            Queue<User> users = new Queue<User>(DataAccessLayer.ExecuteReader<User>(CommandType.Text, query, null));
 
             Assert.IsTrue(users.Count > 0);
         }

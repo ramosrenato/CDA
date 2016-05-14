@@ -96,12 +96,12 @@ namespace CDA.DAL
 
             while (dr.Read())
             {
-                T obj = (T)Activator.CreateInstance(typeof(T));
+                T item = (T)Activator.CreateInstance(typeof(T));
 
                 MethodInfo method = typeof(T).GetMethod(methodName);
-                method.Invoke(obj, new object[] { dr });
+                method.Invoke(item, new object[] { dr });
 
-                list.Add(obj);
+                list.Add(item);
             }
 
             return list;
@@ -117,9 +117,10 @@ namespace CDA.DAL
 
             while (dr.Read())
             {
-                T obj = (T)Activator.CreateInstance(typeof(T));
-                method(obj, dr);
-                list.Add(obj);
+                T item = (T)Activator.CreateInstance(typeof(T));
+                method(item, dr);
+
+                list.Add(item);
             }
 
             return list;
